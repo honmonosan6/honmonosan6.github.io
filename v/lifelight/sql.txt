@@ -1,0 +1,117 @@
+CREATE TABLE t(v INT); 
+
+INSERT 
+INTO t 
+VALUES (1)
+, (2)
+, (3)
+, (4)
+, (5)
+, (6)
+, (7)
+, (8)
+, (9)
+, (10)
+, (11); 
+
+SELECT
+  ABS(t2.v - t1.v) + ABS(t3.v - t2.v) + ABS(t4.v - t3.v) + ABS(t5.v - t4.v) + ABS(t7.v - t6.v) + ABS(t8.v - t7.v)
+   + ABS(t9.v - t8.v) + ABS(t10.v - t9.v) + ABS(t11.v - t10.v) vt
+  , ABS(t3.v - t1.v) + ABS(t4.v - t2.v) + ABS(t5.v - t3.v) + ABS(t8.v - t6.v) + ABS(t9.v - t7.v) + ABS
+  (t10.v - t8.v) + ABS(t11.v - t9.v) vu
+  , ABS(t4.v - t1.v) + ABS(t5.v - t2.v) + ABS(t9.v - t6.v) + ABS(t10.v - t7.v) + ABS(t11.v - t8.v) vv
+  , ABS(t5.v - t1.v) + ABS(t10.v - t6.v) + ABS(t11.v - t7.v) vw
+  , ABS(t11.v - t6.v) vx
+  , t1.v v1
+  , t2.v v2
+  , t3.v v3
+  , t4.v v4
+  , t5.v v5
+  , t6.v v6
+  , t7.v v7
+  , t8.v v8
+  , t9.v v9
+  , t10.v v10
+  , t11.v v11 
+FROM
+  t t1 
+  INNER JOIN t t2 
+    ON ABS(t2.v - t1.v) > 1 
+    AND t2.v > 2 
+  INNER JOIN t t3 
+    ON ABS(t3.v - t2.v) > 1 
+    AND t3.v > 2 
+    AND t3.v <> t1.v 
+  INNER JOIN t t4 
+    ON ABS(t4.v - t3.v) > 1 
+    AND t4.v > 2 
+    AND t4.v <> t2.v 
+    AND t4.v <> t1.v 
+  INNER JOIN t t5 
+    ON ABS(t5.v - t4.v) > 1 
+    AND t5.v > 2 
+    AND t5.v <> t3.v 
+    AND t5.v <> t2.v 
+    AND t5.v <> t1.v 
+  INNER JOIN t t6 
+    ON ABS(t6.v - t5.v) > 0 
+    AND t6.v <> t4.v 
+    AND t6.v <> t3.v 
+    AND t6.v <> t2.v 
+    AND t6.v <> t1.v 
+  INNER JOIN t t7 
+    ON ABS(t7.v - t6.v) > 1 
+    AND t7.v <> t5.v 
+    AND t7.v <> t4.v 
+    AND t7.v <> t3.v 
+    AND t7.v <> t2.v 
+    AND t7.v <> t1.v 
+  INNER JOIN t t8 
+    ON ABS(t8.v - t7.v) > 1 
+    AND t8.v <> t6.v 
+    AND t8.v <> t5.v 
+    AND t8.v <> t4.v 
+    AND t8.v <> t3.v 
+    AND t8.v <> t2.v 
+    AND t8.v <> t1.v 
+  INNER JOIN t t9 
+    ON ABS(t9.v - t8.v) > 1 
+    AND t9.v <> t7.v 
+    AND t9.v <> t6.v 
+    AND t9.v <> t5.v 
+    AND t9.v <> t4.v 
+    AND t9.v <> t3.v 
+    AND t9.v <> t2.v 
+    AND t9.v <> t1.v 
+  INNER JOIN t t10 
+    ON ABS(t10.v - t9.v) > 1 
+    AND t10.v <> t8.v 
+    AND t10.v <> t7.v 
+    AND t10.v <> t6.v 
+    AND t10.v <> t5.v 
+    AND t10.v <> t4.v 
+    AND t10.v <> t3.v 
+    AND t10.v <> t2.v 
+    AND t10.v <> t1.v 
+  INNER JOIN t t11 
+    ON ABS(t11.v - t10.v) > 1 
+    AND t11.v <> t9.v 
+    AND t11.v <> t8.v 
+    AND t11.v <> t7.v 
+    AND t11.v <> t6.v 
+    AND t11.v <> t5.v 
+    AND t11.v <> t4.v 
+    AND t11.v <> t3.v 
+    AND t11.v <> t2.v 
+    AND t11.v <> t1.v 
+WHERE
+  t1.v = 1 
+ORDER BY
+  vt + vu + vv + vw + vx DESC
+  , vt DESC
+  , vu DESC
+  , vv DESC
+  , vw DESC
+  , vx DESC 
+LIMIT
+  100;
